@@ -1,0 +1,255 @@
+<form id="login">
+    <div class="login">
+        <div class="scoreBoard">
+            Last player:
+              <div id="scoreBoardName">Smth</div>
+              <div id="scoreBoardText">tx</div>
+        </div>
+        <div id="lgon">
+            <label for="name" class="label-name">Player Name</label>
+            <input type="text" id="name" name="name">
+            <button type="button" onclick="storage()" class="btn btn-login">Submit</button>
+        </div>
+        <div id="quizzScreen" class="hide">
+            <div class="board">
+                <div id="playerNamediv" class="playerName hide">Player:<h2 id="playerName">number</h2></div>
+                <div id="scoreText" class="score hide">Score:<h2 id="score">number</h2></div>
+            </div>
+            <div class="quizz">
+                <div id="quizzContainer" class="hide">
+                    <div id="question">Question</div>
+                    <div id="buttons" class="btn-grid">
+                        <button type="button" class="buton">Raspuns1</button>
+                        <button type="button" class="buton">Raspuns2</button>
+                        <button type="button" class="buton">Raspuns3</button>
+                        <button type="button" class="buton">Raspuns4</button>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button type="button" id="start" class="start-buton buton">Start</button>
+                    <button type="button" id="next" class="next-buton buton hide">Next</button>
+                    <button type="button" id="another" class="next-buton buton hide">Another</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $(function () {
+        $("#login").validate({
+            rules: {
+                name: {required: true}
+            },
+            messages: {
+                name: "Name is required",
+            },
+        });
+    });
+
+    function storage() {
+
+        const username1 = document.getElementById('name').value;
+        if (!username1) {
+            alert("Este nevoie de un nume");
+        } else {
+            localStorage.setItem('name', JSON.stringify(username1));
+
+            document.getElementById('lgon').classList.add('hide');
+            document.getElementById('quizzScreen').classList.remove('hide');
+            anotherButon.classList.add('hide');
+            document.getElementById('playerNamediv').classList.remove('hide');
+            document.getElementById('playerName').innerText = username1;
+
+
+            start();
+
+        }
+
+    }
+
+    document.getElementById('scoreBoardName').innerText = "Player:" + localStorage.getItem('name');
+    document.getElementById('scoreBoardText').innerText = "Score:" + localStorage.getItem('score');
+
+    const startButon = document.getElementById('start');
+    const nextButon = document.getElementById('next');
+    const anotherButon = document.getElementById('another');
+    const quizzContainer = document.getElementById('quizzContainer');
+    startButon.addEventListener('click', start);
+    anotherButon.addEventListener('click', another);
+    const questionElement = document.getElementById('question');
+    const answerButonElement = document.getElementById('buttons');
+
+    nextButon.addEventListener('click', () => {
+        currentQindex++;
+        setNext();
+    })
+
+    let score;
+
+    let shuffleQ, currentQindex;
+
+    function start() {
+        startButon.classList.add('hide');
+        quizzContainer.classList.remove('hide');
+        shuffleQ = questions.sort(() => Math.random() - .5);
+        currentQindex = 0;
+        score = 0;
+        document.getElementById('score').innerText = score;
+        document.getElementById('scoreText').classList.remove('hide');
+        document.getElementById('score').classList.remove('hide');
+        setNext();
+
+
+    }
+
+    function showQuestion(question) {
+        questionElement.innerText = question.question;
+        question.answers.forEach(answer => {
+            const button = document.createElement('button');
+            button.innerText = answer.text;
+            button.setAttribute('type', 'button');
+            button.classList.add('buton');
+            if (answer.correct) {
+                button.dataset.correct = answer.correct;
+
+            }
+            button.addEventListener('click', selectAnswer);
+            answerButonElement.appendChild(button);
+
+        })
+
+    }
+
+    function setNext() {
+        reset();
+        showQuestion(shuffleQ[currentQindex]);
+    }
+
+    function reset() {
+        nextButon.classList.add('hide');
+        while (answerButonElement.firstChild) {
+            answerButonElement.removeChild(answerButonElement.firstChild);
+        }
+    }
+
+    function selectAnswer(e) {
+        const selectButon = e.target;
+        const correct = selectButon.dataset.correct;
+        setStatus(document.body, correct);
+        Array.from(answerButonElement.children).forEach(buton => {
+            setStatus(buton, buton.dataset.correct);
+        })
+
+
+        if (correct) {
+            score++;
+            document.getElementById('score').innerText = score;
+
+        }
+        if (selectButon) {
+            Array.from(answerButonElement.children).forEach(buton => {
+                $(buton).prop('disabled', true);
+            })
+        }
+        if (shuffleQ.length > currentQindex + 1) {
+            nextButon.classList.remove('hide');
+        } else {
+            anotherButon.classList.remove('hide');
+            startButon.innerText = 'Restart';
+            startButon.classList.remove('hide');
+            localStorage.setItem('score', JSON.stringify(score));
+            document.getElementById('scoreBoardName').innerText = "Player:" + localStorage.getItem('name');
+            document.getElementById('scoreBoardText').innerText = "Score:" + localStorage.getItem('score');
+        }
+    }
+
+    function setStatus(element, correct) {
+        clearStatus(element);
+        if (correct) {
+            element.classList.add('corect');
+        } else {
+            element.classList.add('wrong');
+        }
+    }
+
+    function clearStatus(element) {
+        element.classList.remove('corect');
+        element.classList.remove('wrong');
+    }
+
+    function another() {
+        document.getElementById('quizzScreen').classList.add('hide');
+        document.getElementById('lgon').classList.remove('hide');
+    }
+
+    const questions = [
+        {
+            question: 'Mere treaba??',
+            answers: [
+                {text: 'da', correct: true},
+                {text: 'nu', correct: false},
+                {text: 'nush', correct: false},
+                {text: 'cred', correct: false}
+            ]
+        },
+        {
+            question: 'cine sunt??',
+            answers: [
+                {text: 'halin', correct: false},
+                {text: 'cineva', correct: false},
+                {text: '?????', correct: true},
+                {text: 'hehei', correct: false}
+            ]
+        },
+        {
+            question: 'care e gluma cu sass??',
+            answers: [
+                {text: 'SASSUNAT', correct: false},
+                {text: 'Radu?', correct: false},
+                {text: '1234', correct: false},
+                {text: 'SoCe?', correct: true}
+            ]
+        },
+        {
+            question: 'Mate is fun??',
+            answers: [
+                {text: 'Clar nu', correct: false},
+                {text: 'kinda?', correct: false},
+                {text: 'nop', correct: false},
+                {text: 'Chiar credeai ca o sa fie da?', correct: true}
+            ]
+        },
+        {
+            question: 'Best language??',
+            answers: [
+                {text: 'Romana', correct: false},
+                {text: 'Brasoveneste', correct: true},
+                {text: 'Engleza', correct: false},
+                {text: 'Franceza', correct: false}
+            ]
+        },
+        {
+            question: 'Best programming language??',
+            answers: [
+                {text: 'Javra', correct: false},
+                {text: 'C(++)', correct: false},
+                {text: 'JS', correct: true},
+                {text: 'Piton', correct: false}
+            ]
+        },
+        {
+            question: 'Silviu este ...',
+            answers: [
+                {text: 'Prajit', correct: true},
+                {text: 'Bommer', correct: true},
+                {text: 'Aka Sherbanake', correct: true},
+                {text: 'Best kpop singer', correct: true}
+            ]
+        },
+
+    ]
+</script>

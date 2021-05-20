@@ -1,0 +1,100 @@
+body {
+    background-color: lightblue;
+}
+:root{
+    --ans-neutral: 200;
+    --ans-corect: 145;
+    --ans-wrong: 0;
+}
+.login{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 160px;
+    margin-bottom: 106px;
+    box-sizing: border-box;
+    padding-right: 170px;
+
+}
+.btn-login{
+    background-color: #46b491;
+    position: relative;
+    top:50px;
+    border:1px solid black;
+    right:150px;
+}
+.label-name{
+ position: relative;
+ bottom: 40px;
+ left:140px;
+}
+.quizz{
+    --ans: var(--ans-neutral);
+    width: 800px;
+    max-width: 80%;
+    height: 100px;
+    background-color: white;
+    border-radius:5px;
+    box-shadow:0 0 10px 2px;
+}
+.quizz.corect{
+    --ans: var(--ans-corect);
+}
+.quizz.wrong{
+    --ans: var(--ans-wrong);
+}
+.btn-grid{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    gap:6px;
+}
+.buton{
+    --ans: var(--ans-neutral);
+    border: 1px solid hsl(var(--ans),100%,30%);
+    background-color: hsl(var(--ans),100%,50%);
+    border-radius: 12px;
+}
+.buton:hover{
+    border-color: red;
+}
+.buton.corect{
+    --ans:var(--ans-corect);
+}
+.buton.wrong{
+    --ans:var(--ans-wrong);
+}
+.score{
+    padding-bottom: 20px;
+}
+
+
+.controls{
+    padding-top: 20px;
+    font-size: xxx-large;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.board
+{
+    grid-template-columns: repeat(2,auto);
+    gap: 6px;
+
+}
+.scoreBoard{
+    width: auto;
+    height: 100px;
+    border-radius: 2px;
+    background-color: white;
+    padding-right: 2px;
+    box-shadow:0 0 7px 2px;
+    margin-right: 50px;
+}
+.hide{
+    display: none;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
