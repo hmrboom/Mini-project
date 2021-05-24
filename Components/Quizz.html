@@ -2,13 +2,26 @@
     <div class="login">
         <div class="scoreBoard">
             Last player:
-              <div id="scoreBoardName">Smth</div>
-              <div id="scoreBoardText">tx</div>
+            <div style="color:#46a4b4">
+                <div id="scoreBoardName">Smth</div>
+                <div id="scoreBoardText">tx</div>
+            </div>
+            Challenge:
+            <div style="color:#ff3c00">
+                <div id="scoreBoardPlayer">Smth</div>
+                <div id="scoreBoardPlayerAles"></div>
+            </div>
         </div>
         <div id="lgon">
+            <div id="playerForm">
             <label for="name" class="label-name">Player Name</label>
             <input type="text" id="name" name="name">
-            <button type="button" onclick="storage()" class="btn btn-login">Submit</button>
+            </div>
+            <div>
+                <div id="poza1" class="poza1" onclick="poza1Click()"></div>
+                <div id="poza2" class="poza2" onclick="poza2Click()"></div>
+            </div>
+            <button id="butonLogin" type="button" onclick="storage()" class="btn btn-login">Submit</button>
         </div>
         <div id="quizzScreen" class="hide">
             <div class="board">
@@ -58,7 +71,10 @@
         } else {
             localStorage.setItem('name', JSON.stringify(username1));
 
-            document.getElementById('lgon').classList.add('hide');
+            document.getElementById('playerForm').classList.add('hide');
+            document.getElementById('butonLogin').classList.add('hide');
+            poza1.classList.add('hide');
+            poza2.classList.add('hide');
             document.getElementById('quizzScreen').classList.remove('hide');
             anotherButon.classList.add('hide');
             document.getElementById('playerNamediv').classList.remove('hide');
@@ -74,6 +90,15 @@
     document.getElementById('scoreBoardName').innerText = "Player:" + localStorage.getItem('name');
     document.getElementById('scoreBoardText').innerText = "Score:" + localStorage.getItem('score');
 
+    if (sessionStorage.getItem('playerAles')) {
+        document.getElementById('scoreBoardPlayer').innerText = "Player:" + sessionStorage.getItem('playerAles');
+        document.getElementById('scoreBoardPlayerAles').innerText = "Score:" + sessionStorage.getItem('playerAlesScor');
+    } else {
+        document.getElementById('scoreBoardPlayer').innerText = "Player:Trebuie ales";
+
+    }
+
+
     const startButon = document.getElementById('start');
     const nextButon = document.getElementById('next');
     const anotherButon = document.getElementById('another');
@@ -82,6 +107,9 @@
     anotherButon.addEventListener('click', another);
     const questionElement = document.getElementById('question');
     const answerButonElement = document.getElementById('buttons');
+
+    const poza1 = document.getElementById('poza1');
+    const poza2 = document.getElementById('poza2');
 
     nextButon.addEventListener('click', () => {
         currentQindex++;
@@ -101,6 +129,17 @@
         document.getElementById('score').innerText = score;
         document.getElementById('scoreText').classList.remove('hide');
         document.getElementById('score').classList.remove('hide');
+
+        if (poza1Ales) {
+            poza1.classList.remove('hide');
+            poza1.classList.add('pozaAleasa');
+        }
+        else
+        {
+            poza2.classList.remove('hide');
+            poza2.classList.add('pozaAleasa');
+        }
+
         setNext();
 
 
@@ -183,16 +222,36 @@
 
     function another() {
         document.getElementById('quizzScreen').classList.add('hide');
-        document.getElementById('lgon').classList.remove('hide');
+        document.getElementById('playerForm').classList.remove('hide');
+        document.getElementById('butonLogin').classList.remove('hide');
+        poza1.classList.remove('hide');poza1.classList.remove('pozaAleasa');
+        poza2.classList.remove('hide');poza2.classList.remove('pozaAleasa');
+    }
+
+
+    let poza1Ales = false;
+    let poza2Ales = false;
+
+    function poza1Click() {
+        alert("ales poza1");
+        poza1Ales = true;
+        poza2Ales = false;
+    }
+
+    function poza2Click()
+    {
+        alert("ales poza2");
+        poza2Ales = true;
+        poza1Ales = false;
     }
 
     const questions = [
         {
-            question: 'Mere treaba??',
+            question: 'Cum este ziua?',
             answers: [
-                {text: 'da', correct: true},
-                {text: 'nu', correct: false},
-                {text: 'nush', correct: false},
+                {text: 'frumoasa', correct: true},
+                {text: 'urata', correct: false},
+                {text: 'nu stiu', correct: false},
                 {text: 'cred', correct: false}
             ]
         },
@@ -238,7 +297,7 @@
                 {text: 'Java', correct: false},
                 {text: 'C(++)', correct: false},
                 {text: 'JS', correct: true},
-                {text: 'Piton', correct: false}
+                {text: 'Python', correct: false}
             ]
         },
 

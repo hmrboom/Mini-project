@@ -22,6 +22,7 @@ body {
     top:50px;
     border:1px solid black;
     right:150px;
+    margin-left: 310px;
 }
 .label-name{
  position: relative;
@@ -53,6 +54,7 @@ body {
     border: 1px solid hsl(var(--ans),100%,30%);
     background-color: hsl(var(--ans),100%,50%);
     border-radius: 12px;
+    color: black;
 }
 .buton:hover{
     border-color: red;
@@ -83,13 +85,65 @@ body {
 }
 .scoreBoard{
     width: auto;
-    height: 100px;
+    height: auto;
     border-radius: 2px;
     background-color: white;
     padding-right: 2px;
     box-shadow:0 0 7px 2px;
     margin-right: 50px;
 }
+.lista{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: flex-start;
+    margin-left: 100px;
+    border-radius: 2px;
+    gap:10px;
+}
+.smth{
+    background-color: #46b491;
+    position: relative;
+    border:1px solid black;
+    font-size:24px;
+}
+.smth:hover{
+    border-color: #210008;
+}
+.smth:focus{
+    background-color: #46a4b4
+}
+.poza1{
+    position:absolute;
+    width: calc(192px/4);
+    height:calc(192px/4);
+    background: url(Components/poza1.png) 0 0;
+    animation: animate 1s steps(4) infinite;
+    margin-left: 250px;
+}
+.poza2{
+    position:absolute;
+    width: calc(192px/4);
+    height:calc(192px/4);
+    background: url(Components/poza2.png) 0 0;
+    animation: animate 1s steps(4) infinite;
+    margin-left: 100px;
+}
+@keyframes  animate{
+    from
+    {
+        background-position:0 0;
+    }
+    to{
+        background-position:0 192px;
+    }
+
+}
+.pozaAleasa{
+    top:200px;
+    margin-left: 50px;
+}
+
 .hide{
     display: none;
 }
