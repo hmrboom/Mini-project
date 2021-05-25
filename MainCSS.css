@@ -2,9 +2,9 @@ body {
     background-color: lightblue;
 }
 :root{
-    --ans-neutral: 200;
-    --ans-corect: 145;
-    --ans-wrong: 0;
+    /*! --ans-neutral: 200; */
+    /*! --ans-corect: 145; */
+    /*! --ans-wrong: 0; */
 }
 .login{
     display: flex;
@@ -25,12 +25,11 @@ body {
     margin-left: 310px;
 }
 .label-name{
- position: relative;
- bottom: 40px;
- left:140px;
+    position: relative;
+    bottom: 40px;
+    left:140px;
 }
 .quizz{
-    --ans: var(--ans-neutral);
     width: 800px;
     max-width: 80%;
     height: 100px;
@@ -39,10 +38,10 @@ body {
     box-shadow:0 0 10px 2px;
 }
 .quizz.corect{
-    --ans: var(--ans-corect);
+    background: green;
 }
 .quizz.wrong{
-    --ans: var(--ans-wrong);
+    background: red;
 }
 .btn-grid{
     display: grid;
@@ -50,20 +49,20 @@ body {
     gap:6px;
 }
 .buton{
-    --ans: var(--ans-neutral);
-    border: 1px solid hsl(var(--ans),100%,30%);
-    background-color: hsl(var(--ans),100%,50%);
-    border-radius: 12px;
+    border: 1px solid black;
+    background-color: hsl(193, 100%, 50%);
+    border-radius: 15px;
     color: black;
+
 }
 .buton:hover{
     border-color: red;
 }
 .buton.corect{
-    --ans:var(--ans-corect);
+    background-color: green;
 }
 .buton.wrong{
-    --ans:var(--ans-wrong);
+    background-color: red;
 }
 .score{
     padding-bottom: 20px;
@@ -72,7 +71,7 @@ body {
 
 .controls{
     padding-top: 20px;
-    font-size: xxx-large;
+    font-size: 48px;
     display: flex;
     align-content: center;
     justify-content: center;
@@ -151,4 +150,3 @@ body {
 .disabled{
     pointer-events: none;
 }
-

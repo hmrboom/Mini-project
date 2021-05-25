@@ -14,8 +14,8 @@
         </div>
         <div id="lgon">
             <div id="playerForm">
-            <label for="name" class="label-name">Player Name</label>
-            <input type="text" id="name" name="name">
+                <label for="name" class="label-name">Player Name</label>
+                <input type="text" id="name" name="name">
             </div>
             <div>
                 <div id="poza1" class="poza1" onclick="poza1Click()"></div>
@@ -123,7 +123,7 @@
     function start() {
         startButon.classList.add('hide');
         quizzContainer.classList.remove('hide');
-        shuffleQ = questions.sort(() => Math.random() - .5);
+        shuffleQ = questions.sort(() => Math.random() * questions.length);
         currentQindex = 0;
         score = 0;
         document.getElementById('score').innerText = score;
@@ -133,9 +133,7 @@
         if (poza1Ales) {
             poza1.classList.remove('hide');
             poza1.classList.add('pozaAleasa');
-        }
-        else
-        {
+        } else {
             poza2.classList.remove('hide');
             poza2.classList.add('pozaAleasa');
         }
@@ -224,8 +222,10 @@
         document.getElementById('quizzScreen').classList.add('hide');
         document.getElementById('playerForm').classList.remove('hide');
         document.getElementById('butonLogin').classList.remove('hide');
-        poza1.classList.remove('hide');poza1.classList.remove('pozaAleasa');
-        poza2.classList.remove('hide');poza2.classList.remove('pozaAleasa');
+        poza1.classList.remove('hide');
+        poza1.classList.remove('pozaAleasa');
+        poza2.classList.remove('hide');
+        poza2.classList.remove('pozaAleasa');
     }
 
 
@@ -233,62 +233,61 @@
     let poza2Ales = false;
 
     function poza1Click() {
-        alert("ales poza1");
+        alert("ai ales caracterul");
         poza1Ales = true;
         poza2Ales = false;
     }
 
-    function poza2Click()
-    {
-        alert("ales poza2");
+    function poza2Click() {
+        alert("ai ales caracterul");
         poza2Ales = true;
         poza1Ales = false;
     }
 
     const questions = [
         {
-            question: 'Cum este ziua?',
+            question: 'What’s the smallest country in the world?',
             answers: [
-                {text: 'frumoasa', correct: true},
-                {text: 'urata', correct: false},
-                {text: 'nu stiu', correct: false},
-                {text: 'cred', correct: false}
+                {text: 'Romania', correct: false},
+                {text: 'US', correct: false},
+                {text: 'Russia', correct: false},
+                {text: 'Vatican', correct: true}
             ]
         },
         {
-            question: 'cine sunt??',
+            question: 'What’s the capital of Canada?',
             answers: [
-                {text: 'halin', correct: false},
-                {text: 'cineva', correct: false},
-                {text: '?????', correct: true},
-                {text: 'hehei', correct: false}
+                {text: 'Ottawa', correct: true},
+                {text: 'Bucharest', correct: false},
+                {text: 'Berlin', correct: false},
+                {text: 'Cluj', correct: false}
             ]
         },
         {
-            question: 'care e gluma cu sass??',
+            question: 'How many time zones are there in Russia?',
             answers: [
-                {text: 'SASSUNAT', correct: false},
-                {text: 'Radu?', correct: false},
-                {text: '1234', correct: false},
-                {text: 'SoCe?', correct: true}
+                {text: '4', correct: false},
+                {text: '11', correct: true},
+                {text: '5', correct: false},
+                {text: '1', correct: false}
             ]
         },
         {
-            question: 'Mate is fun??',
+            question: 'Where was the first modern Olympic Games held?',
             answers: [
-                {text: 'Clar nu', correct: false},
-                {text: 'kinda?', correct: false},
-                {text: 'nop', correct: false},
-                {text: 'Chiar credeai ca o sa fie da?', correct: true}
+                {text: 'Athens', correct: true},
+                {text: 'Constanta', correct: false},
+                {text: 'London', correct: false},
+                {text: 'Tokyo', correct: false}
             ]
         },
         {
-            question: 'Best language??',
+            question: 'When was Netflix founded',
             answers: [
-                {text: 'Romana', correct: false},
-                {text: 'Brasoveneste', correct: true},
-                {text: 'Engleza', correct: false},
-                {text: 'Franceza', correct: false}
+                {text: '2001', correct: false},
+                {text: '2011', correct: false},
+                {text: '1989', correct: false},
+                {text: '1997', correct: true}
             ]
         },
         {
